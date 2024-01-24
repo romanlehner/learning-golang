@@ -54,3 +54,26 @@ var m = make(map[string]string)
 - There can only be one package per folder
 - Go interfaces are implicit
 - When passing maps to a function or method, only the pointer is copied
+
+### about packages
+We can rename packages to anything we want, which is useful in cases of naming conflicts:
+
+```go
+import(
+	"github.com/devopsforgo/mypackage"
+	jpackage "github.com/johnsiilver/mypackage"
+)
+```
+
+Sometimes we need to import packages, but don't actually use them in code. Golang would not allow to build code that imports unused packages. In such cases we prepend the underscore to the package. This should always be done in the main package:
+
+```go
+package main
+import (
+    "fmt"
+    _ "sync" //Just an example
+)
+
+```
+
+
