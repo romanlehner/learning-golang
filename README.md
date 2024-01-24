@@ -76,4 +76,11 @@ import (
 
 ```
 
+Variables and functions starting with an upper case are available outside the package (public) and lower case resources are only available within the package (private).
 
+```go
+package calculator
+
+func Sum(a,b int) int {...}
+func connectDB() {...}
+```
