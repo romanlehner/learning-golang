@@ -12,6 +12,22 @@ cd learn-go-with-tests
 go test ../learn-go-with-tests/structs
 ```
 
+### pointers
+The code snipped above is valid, but in go struct pointers are automatically dereferenced:
+
+```go
+//this is correct
+func (w *Wallet) Balance() int {
+	return (*w).balance
+}
+
+//but typically we write
+func (w *Wallet) Balance() int {
+	return w.balance
+}
+```
+By convention we keep the pointer receiver consistent across all methods of a struct, but technically it is not required.
+
 ## personal notes
 - There can only be one package per folder
 - Go interfaces are implicit
