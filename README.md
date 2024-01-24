@@ -28,6 +28,29 @@ func (w *Wallet) Balance() int {
 ```
 By convention we keep the pointer receiver consistent across all methods of a struct, but technically it is not required.
 
+### maps
+
+When looking up keywords in a map, we can get a value and a boolean inidicator if the keyword is present or not:
+
+```go
+value, exists := somemap[somekeyword]
+```
+
+Always initialize, as it will result in a panic runtime error due to its underlying pointer pointing to nil:
+
+```go
+// this declaration will cause panic at runtime
+var m map[string]string
+m["key"] = "value"
+// panic: assignment to entry in nil map
+
+// always initialize
+var m = map[string]string{}
+var m = make(map[string]string)
+// etc. 
+```
+
 ## personal notes
 - There can only be one package per folder
 - Go interfaces are implicit
+- When passing maps to a function or method, only the pointer is copied
