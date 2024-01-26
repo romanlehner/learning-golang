@@ -6,11 +6,22 @@ import (
 	"time"
 )
 
-func mockWebsiteChecker(url string) bool {
+type mockWebsiteChecker struct{}
+
+func (mock mockWebsiteChecker) reachable(url string) bool {
 	return url != "waat://furhurterwe.geds"
 }
 
+type slowStubWebsiteChecker struct{}
+
+func (mock slowStubWebsiteChecker) reachable(_ string) bool {
+	time.Sleep(20 * time.Millisecond)
+	return true
+}
+
 func TestCheckWebsites(t *testing.T) {
+	mock := mockWebsiteChecker{}
+
 	websites := []string{
 		"http://google.com",
 		"http://blog.gypsydave5.com",
@@ -23,25 +34,22 @@ func TestCheckWebsites(t *testing.T) {
 		"waat://furhurterwe.geds":    false,
 	}
 
-	got := CheckWebsites(mockWebsiteChecker, websites)
+	got := CheckWebsites(mock, websites)
 
 	if !reflect.DeepEqual(want, got) {
 		t.Fatalf("wanted %v, got %v", want, got)
 	}
 }
 
-func slowStubWebsiteChecker(_ string) bool {
-	time.Sleep(20 * time.Millisecond)
-	return true
-}
-
 func BenchmarkCheckWebsites(b *testing.B) {
+	stub := slowStubWebsiteChecker{}
+
 	urls := make([]string, 100)
 	for i := 0; i < len(urls); i++ {
 		urls[i] = "a url"
 	}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		CheckWebsites(slowStubWebsiteChecker, urls)
+		CheckWebsites(stub, urls)
 	}
 }

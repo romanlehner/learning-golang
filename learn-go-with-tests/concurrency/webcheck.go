@@ -1,6 +1,10 @@
 package concurrency
 
-type WebsiteChecker (func(string) bool)
+// type WebsiteChecker (func(string) bool)
+
+type WebsiteChecker interface {
+	reachable(string) bool
+}
 
 type result struct {
 	string
@@ -13,7 +17,7 @@ func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
 
 	for _, url := range urls {
 		go func(u string) {
-			resultChannel <- result{u, wc(u)}
+			resultChannel <- result{u, wc.reachable(u)}
 		}(url)
 
 	}
