@@ -3,6 +3,11 @@
 ## learn go with tests
 From one of the most well written sources that I ever found for learning programming by [Chris James](https://quii.gitbook.io/learn-go-with-tests/)
 
+## personal notes
+- There can only be one package per folder
+- Go interfaces are implicit
+- When passing maps to a function or method, only the pointer is copied
+
 ### structs
 The structs exersice is a simple demonstration of structs, methods, interfaces and using tables for test cases.
 
@@ -49,11 +54,6 @@ var m = map[string]string{}
 var m = make(map[string]string)
 // etc. 
 ```
-
-## personal notes
-- There can only be one package per folder
-- Go interfaces are implicit
-- When passing maps to a function or method, only the pointer is copied
 
 ### about packages
 We can rename packages to anything we want, which is useful in cases of naming conflicts:
