@@ -84,3 +84,14 @@ package calculator
 func Sum(a,b int) int {...}
 func connectDB() {...}
 ```
+
+## JSON
+When working with JSON structs, the fields have to be public, otherwise the json package will not be able to process the struct. Go has inbuilt struct fields that allow us to specify the actual name of the field used in the JSON data:
+
+```go
+// struct used for JSON processing
+type Item struct {
+	Name string `json:"name"`
+	Price int	`json:"price"`
+}
+```
